@@ -6,6 +6,12 @@ const app=exprees()
 
 
 
+app.get('/',(req:Request,res:Response,next:NextFunction)=>{
+
+})
+
+
+
 
 
 app.listen(port,()=>{
