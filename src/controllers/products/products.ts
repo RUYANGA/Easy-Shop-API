@@ -8,7 +8,13 @@ const prisma=new PrismaClient()
 
 export async function listProducts (req:Request,res:Response,next:NextFunction){
 
-    const product=await prisma.product.findMany()
+    const {idn}=req.body
+
+    const product=await prisma.product.count({
+        where:{id:{
+            gte:Number(idn)
+        }}
+    })
 
     res.status(200).json({Message:product})
 
@@ -31,10 +37,14 @@ export async function creatProduct(req:Request,res:Response,next:NextFunction){
     console.log(product)
 };
 
-export function updateProduct(req:Request,res:Response,next:NextFunction){
+export async function updateProduct(req:Request,res:Response,next:NextFunction){
     res.status(200).json({Message:'Update products'})
 }
 
-export function deleteProduct(req:Request,res:Response,next:NextFunction){
+export async function deleteProduct(req:Request,res:Response,next:NextFunction){
+    const {id}=req.params;
+    const product= await prisma.product.delete({
+        where:{id:Number(id)},
+    })
     res.status(200).json({Message:'Product deleted'})
 }
