@@ -20,17 +20,25 @@ export function getProductById(req:Request,res:Response,next:NextFunction){
     res.status(200).json({Message:'getproduct by id'})
 };
 
+interface input {
+    name:string,
+    price:number,
+    decription:string
+}
+
 
 export async function creatProduct(req:Request,res:Response,next:NextFunction){
     res.status(201).json({Message:'product can be created  ' })
 
     const userId=req.params.id;
-    const {name,price,amount}=req.body
+    const {name,price,decription}:input=req.body
     const product =await prisma.product.create({
-        data:{name,price,amount,
-            user:{
-                connect:{id:userId}
-            }
+        data:{
+            name,
+            price,
+            decription,
+            userId
+            
         }
     })
 
