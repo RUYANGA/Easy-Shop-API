@@ -5,15 +5,19 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx --watch src/main.ts"
+    "devi": "tsx watch src/main.ts",
+    "dev": "prisma generate && tsx watch src/main.ts"
+
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^6.6.0",
     "express": "^5.1.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.1",
+    "prisma": "^6.6.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.3",
     "typescript": "^5.8.3"
