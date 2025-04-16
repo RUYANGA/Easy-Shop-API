@@ -16,7 +16,14 @@ model User {
   email String @unique
   password String
   products Product []
+  createdAt DateTime @default(now())
+  Role Roles @default(USER)
 
+}
+
+enum Roles {
+  ADMIN
+  USER
 }
 
 model Product {
@@ -24,6 +31,9 @@ model Product {
   name String
   price Float
   decription String
+  createdAt DateTime @default(now())
   userId String
   user User @relation(fields: [userId],references: [id])
 }
+
+
