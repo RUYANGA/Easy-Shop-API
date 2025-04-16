@@ -1,4 +1,4 @@
-import { Router ,Request,Response,NextFunction} from "express";
+import { Router } from "express";
 import {
     listProducts,
     getProductById,
@@ -11,7 +11,7 @@ const router=Router()
 
 router.get('/',listProducts)
 router.get('/product/:id',getProductById)
-router.post('/product/create',creatProduct)
+router.post('/product/create/:id',creatProduct)
 router.put('/product/:id',updateProduct)
 router.delete('/product/:id',deleteProduct)
 
