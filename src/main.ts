@@ -1,4 +1,5 @@
 import exprees,{Request,Response,NextFunction} from 'express'
+import productRoute from './routes/products/index'
 
 const port=3000
 
@@ -6,9 +7,7 @@ const app=exprees()
 
 
 
-app.get('/',(req:Request,res:Response,next:NextFunction)=>{
-
-})
+app.use(productRoute)
 
 
 
