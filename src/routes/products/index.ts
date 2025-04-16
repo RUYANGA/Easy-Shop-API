@@ -1,14 +1,12 @@
 import { Router ,Request,Response,NextFunction} from "express";
+import { listProducts ,getProductById} from "../../controllers/products/products";
 
-const routter=Router()
+const router=Router()
 
 
-routter.get('/',(req:Request,res:Response,next:NextFunction)=>{
-
-    res.status(200).json({Message:'Hello world'})
-
-})
+router.get('/',listProducts)
+router.get('/:id',getProductById)
 
 
 
-export default routter
+export default router
