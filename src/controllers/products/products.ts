@@ -15,7 +15,8 @@ export function getProductById(req:Request,res:Response,next:NextFunction){
 
 
 export function creatProduct(req:Request,res:Response,next:NextFunction){
-    res.status(201).json({Message:'Create product'})
+    res.status(201).json({Message:'product can be created k' })
+    console.log(req.body)
 };
 
 export function updateProduct(req:Request,res:Response,next:NextFunction){

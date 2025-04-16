@@ -1,5 +1,11 @@
 import { Router ,Request,Response,NextFunction} from "express";
-import { listProducts ,getProductById,creatProduct, updateProduct, deleteProduct} from "../../controllers/products/products";
+import {
+    listProducts,
+    getProductById,
+    creatProduct,  
+    updateProduct,
+    deleteProduct
+    } from "../../controllers/products/products";
 
 const router=Router()
 
