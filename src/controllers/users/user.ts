@@ -13,3 +13,14 @@ export async function creatUser(req:Request,res:Response,next:NextFunction){
 
     res.status(200).json({Message:user})
 }
+
+export async function Dashboard (req:Request,res:Response,next:NextFunction){
+
+    const user=await prisma.user.findMany({
+        include:{
+            products:true
+        }
+    })
+
+    res.status(200).json({Message:user})
+}

@@ -28,7 +28,7 @@ interface input {
 
 
 export async function creatProduct(req:Request,res:Response,next:NextFunction){
-    res.status(201).json({Message:'product can be created  ' })
+    
 
     const userId=req.params.id;
     const {name,price,decription}:input=req.body
@@ -43,6 +43,7 @@ export async function creatProduct(req:Request,res:Response,next:NextFunction){
     })
 
     console.log(product)
+    res.status(201).json({Message:'product created successfuly  ',product:product })
 };
 
 export async function updateProduct(req:Request,res:Response,next:NextFunction){
