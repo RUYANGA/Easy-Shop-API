@@ -22,13 +22,13 @@ export async function creatUser(req:Request,res:Response,next:NextFunction){
         data:{username,email,password}
     })
 
-    await prisma.Otp.create(
+    await prisma.otp.create({
         data:{
-            user:user.id,
+            userId:user.id,
             otp,
             expiredOtp
         }
-    )
+    })
     res.status(200).json({Message:user})
 }
 
