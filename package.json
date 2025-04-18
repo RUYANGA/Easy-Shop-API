@@ -14,11 +14,13 @@
     "@prisma/client": "^6.6.0",
     "date-fns": "^4.1.0",
     "express": "^5.1.0",
-    "express-validator": "^7.2.1"
+    "express-validator": "^7.2.1",
+    "nodemailer": "^6.10.1"
   },
   "devDependencies": {
     "@types/express": "^5.0.1",
     "@types/express-validator": "^3.0.2",
+    "@types/nodemailer": "^6.4.17",
     "prisma": "^6.6.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.3",
