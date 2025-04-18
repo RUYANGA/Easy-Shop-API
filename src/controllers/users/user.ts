@@ -36,7 +36,7 @@ export async function creatUser(req:Request,res:Response,next:NextFunction){
     res.status(200).json({Message:`Sign up successfully , please verify your otp code send to ${email}`})
 };
 
-export async function verifyOtp(req:Request,res:Response,next:NextFunction){
+export async function verifyOtp(req:Request,res:Response,next:NextFunction):Promise<any>{
 
     interface InputVerify{
         email:string,
@@ -50,15 +50,24 @@ export async function verifyOtp(req:Request,res:Response,next:NextFunction){
     const otpFound=await prisma.otp.findUnique({
         where:{userId:user?.id}
     })
-    
-    if(user?.id !== otpFound?.userId ){
 
+    if(!otpFound) return res.status(404).json({Message:'Otp not found'})
+    
+    if(user?.id !== otpFound?.userId || otpFound.expiredOtp < new Date()){
+        return res.status(404).json({Message:'Otp expired or invalid'})
     }
+
+    await prisma.user.update({
+        where:{email:email},
+        data:{Status:'ACTIVE'}
+    })
+
+    await prisma.otp.delete({
+        where:{userId:user.id}
+    })
     
 
-
-
-
+    res.status(200).json({Message:'Email verified , now you can login'})
 
 }
 

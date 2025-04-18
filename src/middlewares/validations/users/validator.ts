@@ -44,7 +44,7 @@ export const verify_Otp=[
         .then(user=>{
             if(!user){
                 return Promise.reject(
-                    'User with email not foun'
+                    'User with email not found !'
                 )
             }else if(user.Status==='ACTIVE'){
                 return Promise.reject(
