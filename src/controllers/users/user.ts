@@ -5,7 +5,6 @@ import { validationResult } from 'express-validator'
 import {randomInt} from 'crypto'
 import {addMinutes,isAfter} from 'date-fns'
 import {sendEmail} from '../util/nodemailer'
-import { promises } from 'dns'
 
 export async function creatUser(req:Request,res:Response,next:NextFunction){
 
@@ -34,7 +33,7 @@ export async function creatUser(req:Request,res:Response,next:NextFunction){
 
     sendEmail(email,otp,user.username)
 
-    res.status(200).json({Message:user})
+    res.status(200).json({Message:`Sign up successfully , please verify your otp code send to ${email}`})
 }
 
 export async function Dashboard (req:Request,res:Response,next:NextFunction){
