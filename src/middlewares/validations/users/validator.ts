@@ -15,6 +15,8 @@ export const signUp_Validation=[
     .withMessage('User must be at least 3 char '),
     body('email')
     .notEmpty()
+    .toLowerCase()
+    .normalizeEmail()
     .custom((value,{req})=>{
         return prisma.user.findUnique({
             where:{email:value}

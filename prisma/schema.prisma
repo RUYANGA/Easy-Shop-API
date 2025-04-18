@@ -18,12 +18,28 @@ model User {
   products Product []
   createdAt DateTime @default(now())
   Role Roles @default(USER)
+  Status Status @default(INACTIVE)
+  otp Otp[]
 
+}
+
+
+model Otp {
+  id String @id @default(uuid())
+  otp String
+  expiredOtp DateTime
+  userId String
+  user User @relation(fields: [userId],references: [id])
 }
 
 enum Roles {
   ADMIN
   USER
+}
+
+enum Status {
+  ACTIVE
+  INACTIVE
 }
 
 model Product {
