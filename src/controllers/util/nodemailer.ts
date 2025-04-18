@@ -12,11 +12,11 @@ const transporter = nodemailer.createTransport({
     },
   });
 
-  export const sendEmail = async (to: string, subject: string, otp:string,user:string) => {
+  export const sendEmail = async (to: string,  otp:string,user:string) => {
     const info = await transporter.sendMail({
       from:'EASY SHOP',
       to,
-      subject,
+      subject:'VERIFY OTP CODE',
       html:` <!DOCTYPE html>
       <html>
       <head>
@@ -37,7 +37,7 @@ const transporter = nodemailer.createTransport({
               
               <!-- Content -->
               <div style="padding: 24px; line-height: 1.6;">
-                  <p style="margin-top: 0; color: #333333; font-size: 16px;">Hello 👋 ${patient.Lname},</p>
+                  <p style="margin-top: 0; color: #333333; font-size: 16px;">Hello 👋 ${user},</p>
                   
                   <p style="color: #333333; font-size: 16px;">Thank you for signing up! We're excited to have you on board.</p>
                   

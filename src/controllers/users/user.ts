@@ -4,6 +4,8 @@ const prisma=new PrismaClient()
 import { validationResult } from 'express-validator'
 import {randomInt} from 'crypto'
 import {addMinutes,isAfter} from 'date-fns'
+import {sendEmail} from '../util/nodemailer'
+import { promises } from 'dns'
 
 export async function creatUser(req:Request,res:Response,next:NextFunction){
 
@@ -29,6 +31,9 @@ export async function creatUser(req:Request,res:Response,next:NextFunction){
             expiredOtp
         }
     })
+
+    sendEmail(email,otp,user.username)
+
     res.status(200).json({Message:user})
 }
 
