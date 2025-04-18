@@ -3,6 +3,7 @@ import { Request,Response,NextFunction } from 'express'
 const prisma=new PrismaClient()
 import { validationResult } from 'express-validator'
 import {randomInt} from 'crypto'
+import {addMinutes,isAfter} from 'date-fns'
 
 export async function creatUser(req:Request,res:Response,next:NextFunction){
 
@@ -15,13 +16,19 @@ export async function creatUser(req:Request,res:Response,next:NextFunction){
     const {username,email,password}:User=req.body
 
     const otp:string= await randomInt(111111,999999).toString()
-    const expiredOtp=next
+    const expiredOtp= addMinutes(new Date(),15)
 
     const user=await prisma.user.create({
         data:{username,email,password}
     })
 
-
+    await prisma.Otp.create(
+        data:{
+            user:user.id,
+            otp,
+            expiredOtp
+        }
+    )
     res.status(200).json({Message:user})
 }
 
