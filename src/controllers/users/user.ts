@@ -17,7 +17,7 @@ export async function creatUser(req:Request,res:Response,next:NextFunction){
     const {username,email,password}:User=req.body
 
     const otp:string= await randomInt(111111,999999).toString()
-    const expiredOtp:Date= addMinutes(new Date(),15)
+    const expiredOtp= addMinutes(new Date(),15)
 
     const user=await prisma.user.create({
         data:{username,email,password}
@@ -43,6 +43,20 @@ export async function verifyOtp(req:Request,res:Response,next:NextFunction){
         otp:string
     }
     const {email,otp}:InputVerify=req.body
+
+    const user=await prisma.user.findUnique({
+        where:{email:email}
+    })
+    const otpFound=await prisma.otp.findUnique({
+        where:{userId:user?.id}
+    })
+    
+    if(user?.id !== otpFound?.userId ){
+
+    }
+    
+
+
 
 
 
