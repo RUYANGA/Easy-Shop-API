@@ -46,7 +46,12 @@ export const verify_Otp=[
                 return Promise.reject(
                     'User with email not foun'
                 )
+            }else if(user.Status==='ACTIVE'){
+                return Promise.reject(
+                    'User with email already verified!'
+                )
             }
+
         })
     })
     .isString()
