@@ -37,9 +37,14 @@ export async function creatUser(req:Request,res:Response,next:NextFunction){
 };
 
 export async function verifyOtp(req:Request,res:Response,next:NextFunction){
-    const {email,otp}=req.body
 
-    
+    interface InputVerify{
+        email:string,
+        otp:string
+    }
+    const {email,otp}:InputVerify=req.body
+
+
 
 }
 
