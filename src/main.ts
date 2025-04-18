@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
 
 dotenv.config();
-
 import express ,{Request,Response,NextFunction,ErrorRequestHandler} from 'express'
 
 import productRoute from './routes/products/product'
@@ -22,7 +21,8 @@ app.use(userRouter)
 
 
 app.use((error:any,req:Request,res:Response,next:NextFunction):void=>{
-    res.status(500).json({Error:error.message || 'Something went wronge'})
+    res.status(500).json({Error: 'Something went wronge'})
+    console.log(error.message)
     return
 })
 
