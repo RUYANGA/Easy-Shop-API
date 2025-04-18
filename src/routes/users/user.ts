@@ -1,6 +1,6 @@
 import { Router } from "express"
 
-import {creatUser, Dashboard} from '../../controllers/users/user'
+import {creatUser, Dashboard,verifyOtp} from '../../controllers/users/user'
 
 import {signUp_Validation} from '../../middlewares/validations/users/validator'
 
@@ -11,6 +11,7 @@ const router=Router()
 
 router.post('/user/create',signUp_Validation,validateRequest,creatUser)
 router.get('/user/dashboard',Dashboard)
+router.post('/user/verify',verifyOtp)
 
 
 export default router
