@@ -19,7 +19,7 @@ model User {
   createdAt DateTime @default(now())
   Role Roles @default(USER)
   Status Status @default(INACTIVE)
-  otp Otp[]
+  otp Otp?
 
 }
 
@@ -28,7 +28,7 @@ model Otp {
   id String @id @default(uuid())
   otp String
   expiredOtp DateTime
-  userId String
+  userId String @unique
   user User @relation(fields: [userId],references: [id])
 }
 
