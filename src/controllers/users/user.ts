@@ -16,7 +16,7 @@ export async function creatUser(req:Request,res:Response,next:NextFunction){
     const {username,email,password}:User=req.body
 
     const otp:string= await randomInt(111111,999999).toString()
-    const expiredOtp= addMinutes(new Date(),15)
+    const expiredOtp:Date= addMinutes(new Date(),15)
 
     const user=await prisma.user.create({
         data:{username,email,password}
