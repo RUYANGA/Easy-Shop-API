@@ -1,3 +1,7 @@
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 import express ,{Request,Response,NextFunction,ErrorRequestHandler} from 'express'
 
 import productRoute from './routes/products/product'
