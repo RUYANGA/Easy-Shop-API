@@ -98,6 +98,9 @@ export async function Login (req:Request,res:Response,next:NextFunction){
     if(!await bcrypt.compare(password,user.password)){
         return res.status(404).json({Message:'Email or password incorrect !'})
     }
+
+
+    return res.status(200).json({Message:'User loged in  successfully, go to your dashboard'})
    
 
 }
