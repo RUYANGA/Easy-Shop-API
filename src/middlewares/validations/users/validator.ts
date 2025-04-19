@@ -70,6 +70,8 @@ export const loginValidation=[
     .toLowerCase()
     .escape()
     .custom((value,{req})=>{
-        return 
+        return prisma.user.findUnique({
+            where:{email:value}
+        })
     })
 ]
