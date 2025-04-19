@@ -9,9 +9,9 @@ import {validateRequest} from '../../middlewares/auth/requestValidator'
 
 const router=Router()
 
-router.post('/user/create',signUp_Validation,validateRequest,creatUser)
+router.post('/user/create',signUp_Validation,validateRequest,creatUser);
+router.post('/user/verify',verify_Otp,validateRequest,verifyOtp);
 router.get('/user/dashboard',Dashboard)
-router.post('/user/verify',verify_Otp,validateRequest,verifyOtp)
 
 
 export default router

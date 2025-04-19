@@ -1,10 +1,12 @@
 import { PrismaClient } from '@prisma/client'
 import { Request,Response,NextFunction } from 'express'
-const prisma=new PrismaClient()
-import { validationResult } from 'express-validator'
 import {randomInt} from 'crypto'
 import {addMinutes,isAfter} from 'date-fns'
 import {sendEmail} from '../util/nodemailer'
+
+
+
+const prisma=new PrismaClient()
 
 export async function creatUser(req:Request,res:Response,next:NextFunction){
 
