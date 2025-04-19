@@ -3,6 +3,7 @@ import { Request,Response,NextFunction } from 'express'
 import {randomInt} from 'crypto'
 import {addMinutes,isAfter} from 'date-fns'
 import {sendEmail} from '../util/nodemailer'
+import  bcrypt from 'bcrypt'
 
 
 
@@ -20,9 +21,14 @@ export async function creatUser(req:Request,res:Response,next:NextFunction){
 
     const otp:string= await randomInt(111111,999999).toString()
     const expiredOtp= addMinutes(new Date(),15)
+    const hashPassword= await bcrypt.hash(password,12)
 
     const user=await prisma.user.create({
-        data:{username,email,password}
+        data:{
+            username,
+            email,
+            password:hashPassword
+        }
     })
 
     await prisma.otp.create({
@@ -69,7 +75,30 @@ export async function verifyOtp(req:Request,res:Response,next:NextFunction):Prom
     })
     
 
-    res.status(200).json({Message:'Email verified , now you can login'})
+    res.status(200).json({Message:'Email verified , now you can login'});
+
+};
+
+
+export async function Login (req:Request,res:Response,next:NextFunction){
+    
+    interface loginInput {
+        email:string;
+        password:string
+    }
+
+    const {email,password}:loginInput=req.body;
+
+    const user=await prisma.user.findUnique({
+        where:{email:email}
+    });
+
+    if(!user)return res.status(404).json({Message:'Email or password incorrect !'})
+
+    if(!await bcrypt.compare(password,user.password)){
+        return res.status(404).json({Message:'Email or password incorrect !'})
+    }
+   
 
 }
 
