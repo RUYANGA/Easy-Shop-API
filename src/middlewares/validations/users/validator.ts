@@ -62,3 +62,14 @@ export const verify_Otp=[
     .escape()
 
 ]
+
+export const loginValidation=[
+    body('email')
+    .notEmpty()
+    .withMessage('Email required')
+    .toLowerCase()
+    .escape()
+    .custom((value,{req})=>{
+        return 
+    })
+]
