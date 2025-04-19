@@ -80,7 +80,7 @@ export async function verifyOtp(req:Request,res:Response,next:NextFunction):Prom
 };
 
 
-export async function Login (req:Request,res:Response,next:NextFunction){
+export async function Login (req:Request,res:Response,next:NextFunction):Promise<any>{
 
     interface loginInput {
         email:string;
