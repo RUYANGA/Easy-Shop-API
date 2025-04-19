@@ -73,5 +73,22 @@ export const loginValidation=[
         return prisma.user.findUnique({
             where:{email:value}
         })
-    })
+        .then(user=>{
+            if(!user){
+                return Promise.reject(
+                    'Email or password incorrect !'
+                )
+            }
+            if(user.Status==='INACTIVE'){
+                return Promise.reject(
+                    'Email not verified please verify your email'
+                )
+            }
+        })
+    }),
+    body('password')
+    .notEmpty()
+    .withMessage('Password required !')
+    .escape()
+
 ]
