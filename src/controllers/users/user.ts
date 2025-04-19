@@ -81,7 +81,7 @@ export async function verifyOtp(req:Request,res:Response,next:NextFunction):Prom
 
 
 export async function Login (req:Request,res:Response,next:NextFunction){
-    
+
     interface loginInput {
         email:string;
         password:string
