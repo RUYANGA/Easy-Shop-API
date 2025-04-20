@@ -46,8 +46,11 @@ export async function creatUser(req:Request,res:Response,next:NextFunction){
 
 export async function resendOtp(req:Request,res:Response,next:NextFunction){
 
+    interface Resend{
+        email:string
+    }
 
-    const {email,password}=req.body
+    const {email}:Resend=req.body
 
     const user=await prisma.user.findUnique({
         where:{email:email}
