@@ -44,7 +44,7 @@ export async function creatUser(req:Request,res:Response,next:NextFunction){
     res.status(200).json({Message:`Sign up successfully , please verify your otp code send to ${email}`})
 };
 
-export async function resendOtp(req:Request,res:Response,next:NextFunction){
+export async function resendOtp(req:Request,res:Response,next:NextFunction):Promise<any>{
 
     interface Resend{
         email:string
