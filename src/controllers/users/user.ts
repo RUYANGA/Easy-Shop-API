@@ -48,7 +48,7 @@ export async function resendOtp(req:Request,res:Response,next:NextFunction){
 
 
     const {email,password}=req.body
-    
+
     const user=await prisma.user.findUnique({
         where:{email:email}
     });
@@ -65,7 +65,9 @@ export async function resendOtp(req:Request,res:Response,next:NextFunction){
         }
     })
 
-    sendEmail(email,otp,user?.username)
+    sendEmail(email,otp,user?.username);
+
+    res.status(201).json({Message:`Resend otp successfuly otp send to ${email}`})
 
 
 }
