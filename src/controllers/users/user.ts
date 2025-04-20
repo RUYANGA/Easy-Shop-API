@@ -44,6 +44,14 @@ export async function creatUser(req:Request,res:Response,next:NextFunction){
     res.status(200).json({Message:`Sign up successfully , please verify your otp code send to ${email}`})
 };
 
+export async function resendOtp(req:Request,res:Response,next:NextFunction){
+    const {email,password}=req.body
+    const user=await prisma.user.findUnique({
+        where:{email:email}
+    })
+    
+}
+
 export async function verifyOtp(req:Request,res:Response,next:NextFunction):Promise<any>{
 
     interface InputVerify{

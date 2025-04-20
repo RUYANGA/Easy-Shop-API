@@ -10,11 +10,8 @@ export const product_validation=[
     .withMessage('Name must be contain 3 character'),
     body('price')
     .notEmpty()
-    .withMessage('Please enter price')
-    .escape()
-    .isNumeric()
-    .withMessage('Price must be numbers'),
-    body('description')
+    .withMessage('Please enter price'),
+    body('decription')
     .notEmpty()
     .withMessage('Please enter description')
     .escape()
