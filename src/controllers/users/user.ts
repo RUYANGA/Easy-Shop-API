@@ -17,11 +17,12 @@ export async function creatUser(req:Request,res:Response,next:NextFunction){
         password:string
     }
 
-    const {username,email,password}:User=req.body
+    const {username,email,password}:User=req.body;4e
 
-    const otp:string= await randomInt(111111,999999).toString()
-    const expiredOtp= addMinutes(new Date(),15)
-    const hashPassword= await bcrypt.hash(password,12)
+    const otp:string= await randomInt(111111,999999).toString();
+    const expiredOtp= addMinutes(new Date(),15);
+
+    const hashPassword= await bcrypt.hash(password,12);
 
     const user=await prisma.user.create({
         data:{
@@ -68,7 +69,7 @@ export async function resendOtp(req:Request,res:Response,next:NextFunction):Prom
         }
     })
 
-    sendEmail(email,otp,user?.username);
+    sendEmail(email,otp,user?.username);// send otp code to email
 
     res.status(201).json({Message:`Resend otp successfuly otp send to ${email}`})
 
@@ -143,8 +144,6 @@ export async function Dashboard (req:Request,res:Response,next:NextFunction){
             products:true
         }
     })
-
-    
 
     res.status(200).json({Message:user})
 }

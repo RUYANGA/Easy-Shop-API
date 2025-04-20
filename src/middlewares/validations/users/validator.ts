@@ -1,6 +1,5 @@
 import { body } from "express-validator";
 import { PrismaClient } from "@prisma/client";
-import { verify } from "crypto";
 
 const prisma=new PrismaClient()
 
@@ -62,6 +61,8 @@ export const verify_Otp=[
     .notEmpty()
     .withMessage('Provide email')
     .toLowerCase()
+    .isString()
+    .escape()
     .custom((value,{req})=>{
         return prisma.user.findUnique({
             where:{email:value}
@@ -78,9 +79,7 @@ export const verify_Otp=[
             }
 
         })
-    })
-    .isString()
-    .escape(),
+    }),
     body('otp')
     .notEmpty()
     .withMessage('Privide otp code')
