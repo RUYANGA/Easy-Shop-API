@@ -48,8 +48,24 @@ export async function resendOtp(req:Request,res:Response,next:NextFunction){
     const {email,password}=req.body
     const user=await prisma.user.findUnique({
         where:{email:email}
+    });
+    const otp:string= await randomInt(111111,999999).toString()
+    const expiredOtp= addMinutes(new Date(),15)
+
+    if(!user) return res.status(404).json({Message:'User with email not found'});
+
+
+    await prisma.otp.update({
+        where:{id:user.id},
+        data:{
+            otp,
+            expiredOtp
+        }
     })
-    
+
+    sendEmail(email,otp,user?.username)
+
+
 }
 
 export async function verifyOtp(req:Request,res:Response,next:NextFunction):Promise<any>{
