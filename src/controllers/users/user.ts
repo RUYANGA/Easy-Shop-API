@@ -45,7 +45,10 @@ export async function creatUser(req:Request,res:Response,next:NextFunction){
 };
 
 export async function resendOtp(req:Request,res:Response,next:NextFunction){
+
+
     const {email,password}=req.body
+    
     const user=await prisma.user.findUnique({
         where:{email:email}
     });
@@ -53,7 +56,6 @@ export async function resendOtp(req:Request,res:Response,next:NextFunction){
     const expiredOtp= addMinutes(new Date(),15)
 
     if(!user) return res.status(404).json({Message:'User with email not found'});
-
 
     await prisma.otp.update({
         where:{id:user.id},
