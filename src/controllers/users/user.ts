@@ -17,7 +17,7 @@ export async function creatUser(req:Request,res:Response,next:NextFunction){
         password:string
     }
 
-    const {username,email,password}:User=req.body;4e
+    const {username,email,password}:User=req.body
 
     const otp:string= await randomInt(111111,999999).toString();
     const expiredOtp= addMinutes(new Date(),15);
