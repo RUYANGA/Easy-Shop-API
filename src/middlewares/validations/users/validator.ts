@@ -32,6 +32,31 @@ export const signUp_Validation=[
     })
 ];
 
+export const resendOtp_validation=[
+    body('email')
+    .notEmpty()
+    .normalizeEmail()
+    .escape()
+    .withMessage('Please enter email')
+    .custom((value,{req})=>{
+        return prisma.user.findUnique({
+            where:{email:value}
+        })
+        .then(user=>{
+            if(!user){
+                return Promise.reject(
+                    'User with email not found'
+                )
+            }else if(user.Status==='ACTIVE'){
+                return Promise.reject(
+                    'Email already verified'
+                )
+            }
+
+        })
+    })
+]
+
 export const verify_Otp=[
     body('email')
     .notEmpty()
