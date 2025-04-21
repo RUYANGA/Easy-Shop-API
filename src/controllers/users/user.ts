@@ -133,13 +133,16 @@ export async function Login (req:Request,res:Response,next:NextFunction):Promise
     };
 
     const token=jwt.sign(
-        {id:user.id},
+        {
+            id:user.id,
+            email:user.email
+        },
         process.env.JWTKEY as string,
         {expiresIn:'2day'}
     )
 
 
-    return res.status(200).json({Message:'User loged in  successfully, go to your dashboard'})
+    return res.status(200).json({Message:'User loged in  successfully, go to your dashboard',token:token})
    
 
 }
