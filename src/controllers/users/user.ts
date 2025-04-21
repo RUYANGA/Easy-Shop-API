@@ -49,7 +49,7 @@ export async function creatUser(req:Request,res:Response,next:NextFunction){
 
 export async function resendOtp(req:Request,res:Response,next:NextFunction):Promise<any>{
 
-    interface Resend{
+    interface Resend {
         email:string
     }
 
