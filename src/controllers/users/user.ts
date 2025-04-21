@@ -5,6 +5,7 @@ import {addMinutes,isAfter} from 'date-fns'
 import {sendEmail} from '../util/nodemailer'
 import  bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken'
+const JWT_KEY=process.env.JWTKEY || 'mydefaultkeyisruyanga' as string
 
 
 
@@ -134,10 +135,9 @@ export async function Login (req:Request,res:Response,next:NextFunction):Promise
 
     const token=jwt.sign(
         {
-            id:user.id,
-            email:user.email
+            id:user.id
         },
-        process.env.JWTKEY as string,
+        JWT_KEY,
         {expiresIn:'2day'}
     )
 
