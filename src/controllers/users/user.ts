@@ -3,7 +3,8 @@ import { Request,Response,NextFunction } from 'express'
 import {randomInt} from 'crypto'
 import {addMinutes,isAfter} from 'date-fns'
 import {sendEmail} from '../util/nodemailer'
-import  bcrypt from 'bcrypt'
+import  bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken'
 
 
 
@@ -129,7 +130,13 @@ export async function Login (req:Request,res:Response,next:NextFunction):Promise
 
     if(!await bcrypt.compare(password,user.password)){
         return res.status(404).json({Message:'Email or password incorrect !'})
-    }
+    };
+
+    const token=jwt.sign(
+        {id:user.id},
+        process.env.JWTKEY as string,
+        {expiresIn:'2day'}
+    )
 
 
     return res.status(200).json({Message:'User loged in  successfully, go to your dashboard'})
