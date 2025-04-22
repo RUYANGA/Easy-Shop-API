@@ -150,24 +150,27 @@ export interface AuthenticatedRequest extends Request {
 
 export async function userUpdate(req:AuthenticatedRequest,res:Response,next:NextFunction):Promise<any>{
 
-    const {username,email,password}=req.body;
+    try {
+        const {username,email,password}=req.body;
 
 
-    let hashPass;
-    if(password){
-        await bcrypt.hash(password,12)
-    }
-    const userId=await prisma.user.updateMany({
-        where:{id:req.user},
-        data:{
-            username,
-            password,
-            email
+        let hashPass;
+        if(password){
+           hashPass= await bcrypt.hash(password,12)
         }
-    });
+        const userId=await prisma.user.updateMany({
+            where:{id:req.user},
+            data:{
+                username,
+                password:hashPass,
+                email
+            }
+        });
+        res.status(201).json({Message:'User updated sucessfully!'});
 
-
-    res.status(201).json({Message:'User updated sucessfully!'})
+    } catch (error) {
+        return res.status(500).json({Message:'Error to update user !'})
+    }
 }
 
 
