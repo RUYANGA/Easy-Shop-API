@@ -1,32 +1,42 @@
-import jwt from 'jsonwebtoken'
-import { Request,Response,NextFunction } from 'express'
-import { PrismaClient } from '@prisma/client'
-const JWT_KEY=process.env.JWTKEY || 'mydefaultkeyisruyanga' as string
+import jwt from 'jsonwebtoken';
+import { Request, Response, NextFunction } from 'express';
+import { PrismaClient } from '@prisma/client';
 
-const prisma=new PrismaClient();
+const JWT_KEY = process.env.JWTKEY || 'mydefaultkeyisruyanga';
+const prisma = new PrismaClient();
 
-export const AuthorizeRoles=(allowedRole:string[])=>{
+interface JwtPayloadWithId extends jwt.JwtPayload {
+  id: string;
+}
 
-    return async(req:Request,res:Response,next:NextFunction)=>{
+export const AuthorizeRoles = (allowedRoles: string[]) => {
+  return async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+    try {
+      const authHeader = req.headers['authorization'];
+      const token = authHeader?.split(' ')[1];
 
-    const authHeader=req.headers['authorization'];
+      if (!token) return res.status(401).json({ message: 'Token is not provided!' });
 
-    const token=authHeader?.split(" ")[1];
+      const decoded = jwt.verify(token, JWT_KEY) as JwtPayloadWithId;
 
-    if(!token) return res.status(400).json({Message:'Token is not provided !'});
+      const user = await prisma.user.findUnique({
+        where: { id: decoded.id },
+      });
 
-    interface JwtPayloadWithId extends jwt.JwtPayload {
-        id: string;
+      if (!user) return res.status(404).json({ message: 'User not found' });
+
+      // Check if user's role is allowed
+      if (!allowedRoles.includes(user.Role)) {
+        return res.status(403).json({ message: 'Access denied: insufficient permissions' });
       }
-    const decodeUser=jwt.verify(token,JWT_KEY) as unknown as JwtPayloadWithId
 
-    const user=await prisma.user.findUnique({
-        where:{id:decodeUser.id}
-    })
+      // Optional: attach user info to request
+      (req as any).user = user;
 
-
-
-
-
-
-}}
+      next();
+    } catch (err) {
+      console.error(err);
+      return res.status(401).json({ message: 'Invalid or expired token' });
+    }
+  };
+};
