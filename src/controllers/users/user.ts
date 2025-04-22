@@ -148,7 +148,7 @@ export interface AuthenticatedRequest extends Request {
     user?: string;
   }
 
-export async function userUpdate(req:AuthenticatedRequest,res:Response,next:NextFunction){
+export async function userUpdate(req:AuthenticatedRequest,res:Response,next:NextFunction):Promise<any>{
 
     const {username,email,password}=req.body;
 

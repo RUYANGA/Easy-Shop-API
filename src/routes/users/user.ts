@@ -1,8 +1,8 @@
 import { Router } from "express"
 
-import {creatUser, Dashboard,verifyOtp,Login,resendOtp} from '../../controllers/users/user'
+import {creatUser, Dashboard,verifyOtp,Login,resendOtp,userUpdate} from '../../controllers/users/user'
 
-import {signUp_Validation,verify_Otp,loginValidation,resendOtp_validation,userUpdate} from '../../middlewares/validations/users/validator'
+import {signUp_Validation,verify_Otp,loginValidation,resendOtp_validation,} from '../../middlewares/validations/users/validator'
 
 import {validateRequest} from '../../middlewares/auth/requestValidator'
 import {AuthorizeRoles} from '../../middlewares/auth/verifyToken'
