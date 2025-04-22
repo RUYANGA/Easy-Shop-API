@@ -31,7 +31,7 @@ export const AuthorizeRoles = (allowedRoles: string[]) => {
       }
 
       // Optional: attach user info to request
-      (req as any).user = user;
+      (req as any).user = decoded.id;
 
       next();
     } catch (err) {

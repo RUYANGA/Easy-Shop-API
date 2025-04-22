@@ -134,9 +134,7 @@ export async function Login (req:Request,res:Response,next:NextFunction):Promise
     };
 
     const token=jwt.sign(
-        {
-            id:user.id
-        },
+        {id:user.id},
         JWT_KEY,
         {expiresIn:'2day'}
     )
@@ -146,6 +144,32 @@ export async function Login (req:Request,res:Response,next:NextFunction):Promise
    
 
 }
+export interface AuthenticatedRequest extends Request {
+    user?: string;
+  }
+
+export async function userUpdate(req:AuthenticatedRequest,res:Response,next:NextFunction){
+
+    const {username,email,password}=req.body;
+
+
+    let hashPass;
+    if(password){
+        await bcrypt.hash(password,12)
+    }
+    const userId=await prisma.user.updateMany({
+        where:{id:req.user},
+        data:{
+            username,
+            password,
+            email
+        }
+    });
+
+
+    res.status(201).json({Message:'User updated sucessfully!'})
+}
+
 
 export async function Dashboard (req:Request,res:Response,next:NextFunction){
 
