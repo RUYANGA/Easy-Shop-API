@@ -70,7 +70,7 @@ export async function resendOtp(req:Request,res:Response,next:NextFunction):Prom
         if(!user) return res.status(404).json({Message:'User with email not found'});
 
         await prisma.otp.update({
-            where:{id:user.id},
+            where:{userId:user.id},
             data:{
                 otp,
                 expiredOtp
@@ -83,7 +83,8 @@ export async function resendOtp(req:Request,res:Response,next:NextFunction):Prom
 
 
     } catch (error) {
-        return res.status(500).json({Message:'Error to resend otp!'})
+        console.log(error)
+        return res.status(500).json({Message:'Error to resend otp! GUY'})
     }
 }
 
@@ -171,8 +172,8 @@ export interface AuthenticatedRequest extends Request {
 export async function userUpdate(req:AuthenticatedRequest,res:Response,next:NextFunction):Promise<any>{
 
     try {
-        const {username,email,password}=req.body;
 
+        const {username,email,password}=req.body;
 
         let hashPass;
         if(password){
