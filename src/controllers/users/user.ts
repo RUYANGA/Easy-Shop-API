@@ -12,45 +12,49 @@ const JWT_KEY=process.env.JWTKEY || 'mydefaultkeyisruyanga' as string
 const prisma=new PrismaClient()
 
 export async function creatUser(req:Request,res:Response,next:NextFunction){
+    try {
 
-    interface User {
-        username:string,
-        email:string,
-        password:string
+        interface User {
+            username:string,
+            email:string,
+            password:string
+        }
+
+        const {username,email,password}:User=req.body
+
+        const otp:string= await randomInt(111111,999999).toString();
+        const expiredOtp= addMinutes(new Date(),15);
+
+        const hashPassword= await bcrypt.hash(password,12);
+
+        const user=await prisma.user.create({
+            data:{
+                username,
+                email,
+                password:hashPassword
+            }
+        })
+
+        await prisma.otp.create({
+            data:{
+                userId:user.id,
+                otp,
+                expiredOtp
+            }
+        })
+
+        sendEmail(email,otp,user.username)//send otp code to email
+
+        res.status(200).json({Message:`Sign up successfully , please verify your otp code send to ${email}`})
+    } catch (error) {
+        return res.status(500).json({Message:'Error to register user!'})
     }
-
-    const {username,email,password}:User=req.body
-
-    const otp:string= await randomInt(111111,999999).toString();
-    const expiredOtp= addMinutes(new Date(),15);
-
-    const hashPassword= await bcrypt.hash(password,12);
-
-    const user=await prisma.user.create({
-        data:{
-            username,
-            email,
-            password:hashPassword
-        }
-    })
-
-    await prisma.otp.create({
-        data:{
-            userId:user.id,
-            otp,
-            expiredOtp
-        }
-    })
-
-    sendEmail(email,otp,user.username)//send otp code to email
-
-    res.status(200).json({Message:`Sign up successfully , please verify your otp code send to ${email}`})
 };
 
 export async function resendOtp(req:Request,res:Response,next:NextFunction):Promise<any>{
 
     try {
-        
+
         interface Resend {
             email:string
         }
@@ -79,9 +83,10 @@ export async function resendOtp(req:Request,res:Response,next:NextFunction):Prom
 
 
     } catch (error) {
-        
+        return res.status(500).json({Message:'Error to resend otp!'})
     }
 }
+
 
 export async function verifyOtp(req:Request,res:Response,next:NextFunction):Promise<any>{
 
