@@ -175,12 +175,17 @@ export async function userUpdate(req:AuthenticatedRequest,res:Response,next:Next
 
 
 export async function Dashboard (req:Request,res:Response,next:NextFunction){
+    try {
+        const user=await prisma.user.findMany({
+            include:{
+                products:true
+            }
+        })
 
-    const user=await prisma.user.findMany({
-        include:{
-            products:true
-        }
-    })
+        res.status(200).json({Message:user});
 
-    res.status(200).json({Message:user})
+    } catch (error) {
+        return res.status(500).json({Message:'Error to access user dashboard !'})
+    }
+
 }
