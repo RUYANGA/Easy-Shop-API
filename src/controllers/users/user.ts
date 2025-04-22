@@ -116,32 +116,36 @@ export async function verifyOtp(req:Request,res:Response,next:NextFunction):Prom
 
 export async function Login (req:Request,res:Response,next:NextFunction):Promise<any>{
 
-    interface loginInput {
-        email:string;
-        password:string
-    }
+   try {
+        interface loginInput {
+            email:string;
+            password:string
+        }
 
-    const {email,password}:loginInput=req.body;
+        const {email,password}:loginInput=req.body;
 
-    const user=await prisma.user.findUnique({
-        where:{email:email}
-    });
+        const user=await prisma.user.findUnique({
+            where:{email:email}
+        });
 
-    if(!user)return res.status(404).json({Message:'Email or password incorrect !'})
+        if(!user)return res.status(404).json({Message:'Email or password incorrect !'})
 
-    if(!await bcrypt.compare(password,user.password)){
-        return res.status(404).json({Message:'Email or password incorrect !'})
-    };
+        if(!await bcrypt.compare(password,user.password)){
+            return res.status(404).json({Message:'Email or password incorrect !'})
+        };
 
-    const token=jwt.sign(
-        {id:user.id},
-        JWT_KEY,
-        {expiresIn:'2day'}
-    )
+        const token=jwt.sign(
+            {id:user.id},
+            JWT_KEY,
+            {expiresIn:'2day'}
+        )
 
 
-    return res.status(200).json({Message:'User loged in  successfully, go to your dashboard',token:token})
+        return res.status(200).json({Message:'User loged in  successfully, go to your dashboard',token:token})
    
+   } catch (error) {
+        return res.status(500).json({Message:'Error to login !'})
+   }
 
 }
 export interface AuthenticatedRequest extends Request {
