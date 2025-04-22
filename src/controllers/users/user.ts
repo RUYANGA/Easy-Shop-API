@@ -11,7 +11,7 @@ const JWT_KEY=process.env.JWTKEY || 'mydefaultkeyisruyanga' as string
 
 const prisma=new PrismaClient()
 
-export async function creatUser(req:Request,res:Response,next:NextFunction){
+export async function creatUser(req:Request,res:Response,next:NextFunction):Promise<any>{
     try {
 
         interface User {
@@ -194,7 +194,7 @@ export async function userUpdate(req:AuthenticatedRequest,res:Response,next:Next
 }
 
 
-export async function Dashboard (req:Request,res:Response,next:NextFunction){
+export async function Dashboard (req:Request,res:Response,next:NextFunction):Promise<any>{
     try {
         const user=await prisma.user.findMany({
             include:{
