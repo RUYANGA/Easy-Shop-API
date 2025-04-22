@@ -191,6 +191,22 @@ export async function userUpdate(req:AuthenticatedRequest,res:Response,next:Next
     } catch (error) {
         return res.status(500).json({Message:'Error to update user !'})
     }
+};
+
+export async function deleteAcount(req:AuthenticatedRequest,res:Response,next:NextFunction):Promise<any>{
+    
+    try {
+        
+        await prisma.user.delete({
+            where:{id:req.user}
+        })
+
+        res.status(200).json({Message:'Acount deleted successfully !'});
+
+    } catch (error) {
+        return res.status(500).json({Message:'Error to delete acount !'})
+    }
+
 }
 
 
