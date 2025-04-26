@@ -46,9 +46,9 @@ export async function creatProduct(req:Request,res:Response,next:NextFunction){
     res.status(201).json({Message:'product created successfuly  ',product:product })
 };
 
-export async function updateProduct(req:Request,res:Response,next:NextFunction){
-    res.status(200).json({Message:'Update products'})
-}
+// export async function updateProduct(req:Request,res:Response,next:NextFunction){
+//     res.status(200).json({Message:'Update products'})
+// }
 
 export async function deleteProduct(req:Request,res:Response,next:NextFunction){
     const {id}=req.params;
