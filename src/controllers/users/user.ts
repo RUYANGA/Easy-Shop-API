@@ -154,7 +154,7 @@ export async function Login (req:Request,res:Response,next:NextFunction):Promise
         const token=jwt.sign(
             {id:user.id},
             JWT_KEY,
-            {expiresIn:'2day'}
+            {expiresIn:'60day'}
         )
 
 
@@ -211,9 +211,10 @@ export async function deleteAcount(req:AuthenticatedRequest,res:Response,next:Ne
 }
 
 
-export async function Dashboard (req:Request,res:Response,next:NextFunction):Promise<any>{
+export async function Dashboard (req:AuthenticatedRequest,res:Response,next:NextFunction):Promise<any>{
     try {
-        const user=await prisma.user.findMany({
+        const user=await prisma.user.findUnique({
+            where:{id:req.user},
             include:{
                 products:true
             }
