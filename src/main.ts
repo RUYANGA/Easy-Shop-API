@@ -8,8 +8,8 @@ import userRouter from './routes/users/user'
 
 const port=3000
 
-// const app=express()
-// app.use(express.json())
+const app=express()
+app.use(express.json())
 
 
 
