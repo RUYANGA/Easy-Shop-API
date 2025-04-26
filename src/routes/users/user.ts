@@ -4,8 +4,8 @@ import {creatUser, Dashboard,verifyOtp,Login,resendOtp,userUpdate,deleteAcount} 
 
 import {signUp_Validation,verify_Otp,loginValidation,resendOtp_validation,} from '../../middlewares/validations/users/validator'
 
-import {validateRequest} from '../../middlewares/auth/requestValidator'
-import {AuthorizeRoles} from '../../middlewares/auth/verifyToken'
+// import {validateRequest} from '../../middlewares/auth/requestValidator'
+// import {AuthorizeRoles} from '../../middlewares/auth/verifyToken'
 
 
 const router=Router()
