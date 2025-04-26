@@ -13,8 +13,8 @@ app.use(express.json())
 
 
 
-// app.use(productRoute)
-// app.use(userRouter)
+app.use(productRoute)
+app.use(userRouter)
 
 
 
