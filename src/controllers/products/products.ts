@@ -29,10 +29,14 @@ interface input {
 export interface AuthenticatedRequest extends Request {
     user?: string;
 }
-export async function creatProduct(req:AuthenticatedRequest,res:Response,next:NextFunction){
+export async function creatProduct(req:Request,res:Response,next:NextFunction){
     
 
     const userId=req.params.id;
+    const user=await prisma.user.findUnique({
+        where:{id:userId}
+    })
+    if(!user)return res.status(400).json({Message:'User not found '})
     const {name,price,decription}:input=req.body
     const product =await prisma.product.create({
         data:{
