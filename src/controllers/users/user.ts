@@ -211,19 +211,19 @@ export async function deleteAcount(req:AuthenticatedRequest,res:Response,next:Ne
 }
 
 
-// export async function Dashboard (req:AuthenticatedRequest,res:Response,next:NextFunction):Promise<any>{
-//     try {
-//         const user=await prisma.user.findUnique({
-//             where:{id:req.user},
-//             include:{
-//                 products:true
-//             }
-//         })
+export async function Dashboard (req:AuthenticatedRequest,res:Response,next:NextFunction):Promise<any>{
+    try {
+        const user=await prisma.user.findUnique({
+            where:{id:req.user},
+            include:{
+                products:true
+            }
+        })
 
-//         res.status(200).json({Message:user});
+        res.status(200).json({Message:user});
 
-//     } catch (error) {
-//         return res.status(500).json({Message:'Error to access user dashboard !'})
-//     }
+    } catch (error) {
+        return res.status(500).json({Message:'Error to access user dashboard !'})
+    }
 
-// }
+}
