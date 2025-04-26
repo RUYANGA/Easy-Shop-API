@@ -32,7 +32,7 @@ export interface AuthenticatedRequest extends Request {
 export async function creatProduct(req:AuthenticatedRequest,res:Response,next:NextFunction){
     
 
-    const userId=req.user;
+    const userId=req.params.id;
     const {name,price,decription}:input=req.body
     const product =await prisma.product.create({
         data:{
