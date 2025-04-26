@@ -19,9 +19,9 @@ export const AuthorizeRoles = (allowedRoles: string[]) => {
 
       const decoded = jwt.verify(token, JWT_KEY) as JwtPayloadWithId;
 
-      // const user = await prisma.user.findUnique({
-      //   where: { id: decoded.id },
-      // });
+      const user = await prisma.user.findUnique({
+        where: { id: decoded.id },
+      });
 
       if (!user) return res.status(404).json({ message: 'User not found' });
 
