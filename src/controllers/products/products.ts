@@ -29,7 +29,7 @@ interface input {
 export interface AuthenticatedRequest extends Request {
     user?: string;
 }
-export async function creatProduct(req:Request,res:Response,next:NextFunction){
+export async function creatProduct(req:Request,res:Response,next:NextFunction):Promise<any>{
     
 
     const userId=req.params.id;
@@ -54,6 +54,16 @@ export async function creatProduct(req:Request,res:Response,next:NextFunction){
 
 export async function updateProduct(req:Request,res:Response,next:NextFunction){
     res.status(200).json({Message:'Update products'})
+}
+
+export async function getAllProducts(req:Request,res:Response,next:NextFunction){
+
+
+    const allProducts=await prisma.product.findMany({
+        include:{user:true}
+    })
+
+    res.status(200).json({allProducts})
 }
 
 export async function deleteProduct(req:Request,res:Response,next:NextFunction){
