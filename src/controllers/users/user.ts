@@ -278,5 +278,19 @@ export async function getAllUsers(req:AuthenticatedRequest,res:Response,next:Nex
 
 
 export async function forgetPassword(req:Request,res:Response,next:NextFunction){
+
+    const{email}=req.body;
+
+    const user=await prisma.user.findUnique({
+        where:{email:email}
+    })
+
+    if(!user)return res.status(404).json({Message:'User not found'});
+
+    const token=jwt.sign(
+        {userId:user.id},
+        'oiug',
+        {expiresIn:'15min'}
+    )
      
 }
