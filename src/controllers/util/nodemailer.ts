@@ -120,9 +120,9 @@ const transporter = nodemailer.createTransport({
               <div style="padding: 24px; line-height: 1.6;">
                   <p style="margin-top: 0; color: #333333; font-size: 16px;">Hello 👋 ${user},</p>
                   
-                  <p style="color: #333333; font-size: 16px;">Thank you for signing up! We're excited to have you on board.</p>
+                  <p style="color: #333333; font-size: 16px;">Thank you for choose us! We're excited to have you on board.</p>
                   
-                  <p style="color: #333333; font-size: 16px;">Here are verification code  to help you get started this code expired in 15 minutes:</p>
+                  <p style="color: #333333; font-size: 16px;">Here are link to help you get reset password this link expired in 30 minutes:</p>
                   
               
                   
