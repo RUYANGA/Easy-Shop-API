@@ -233,10 +233,28 @@ export async function getAllUsers(req:AuthenticatedRequest,res:Response,next:Nex
    try {
         const admin=await prisma.user.findUnique({
             where:{id:req.user},
-            include:{products:true}
+            
+            select:{
+                id:true,
+                username:true,
+                email:true,
+                Status:true,
+                Role:true,
+                products:true,
+                createdAt:true
+            }
         })
         const users=await prisma.user.findMany({
-            include:{products:true}
+            
+            select:{
+                id:true,
+                username:true,
+                email:true,
+                Status:true,
+                Role:true,
+                products:true,
+                createdAt:true
+            }
         })
 
         res.status(200).json({Admin:admin,Allusers:users})

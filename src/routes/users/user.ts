@@ -17,7 +17,7 @@ router.post('/user/login',loginValidation,validateRequest,Login)
 router.get('/user/dashboard',AuthorizeRoles(['ADMIN','USER']),Dashboard)
 router.put('/user/updates',AuthorizeRoles(['USER','ADMIN']),userUpdate)
 router.delete('/user/delete',AuthorizeRoles(['USER','ADMIN']),deleteAcount)
-router.get('/admin/users',AuthorizeRoles(['ADMIN','USER']),getAllUsers)
+router.get('/admin/users',AuthorizeRoles(['ADMIN']),getAllUsers)
 
 
 export default router
