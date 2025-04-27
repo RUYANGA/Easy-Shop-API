@@ -227,3 +227,16 @@ export async function Dashboard (req:AuthenticatedRequest,res:Response,next:Next
     }
 
 }
+
+export async function getAllUsers(req:AuthenticatedRequest,res:Response,next:NextFunction){
+
+    const admin=await prisma.user.findUnique({
+        where:{id:req.user},
+        include:{products:true}
+    })
+    const users=await prisma.user.findMany({
+        include:{products:true}
+    })
+
+    res.status(200).json({Admin:admin,Allusers:users})
+}

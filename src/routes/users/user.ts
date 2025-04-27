@@ -1,6 +1,6 @@
 import { Router } from "express"
 
-import {creatUser, Dashboard,verifyOtp,Login,resendOtp,userUpdate,deleteAcount} from '../../controllers/users/user'
+import {creatUser, Dashboard,verifyOtp,Login,resendOtp,userUpdate,deleteAcount,getAllUsers} from '../../controllers/users/user'
 
 import {signUp_Validation,verify_Otp,loginValidation,resendOtp_validation,} from '../../middlewares/validations/users/validator'
 
@@ -17,6 +17,7 @@ router.post('/user/login',loginValidation,validateRequest,Login)
 router.get('/user/dashboard',AuthorizeRoles(['ADMIN','USER']),Dashboard)
 router.put('/user/updates',AuthorizeRoles(['USER','ADMIN']),userUpdate)
 router.delete('/user/delete',AuthorizeRoles(['USER','ADMIN']),deleteAcount)
+router.get('/admin/users',AuthorizeRoles(['ADMIN','USER']),getAllUsers)
 
 
 export default router
