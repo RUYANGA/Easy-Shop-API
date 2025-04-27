@@ -6,6 +6,8 @@ import {sendEmail} from '../util/nodemailer'
 import  bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken'
 const JWT_KEY=process.env.JWTKEY || 'mydefaultkeyisruyanga' as string
+const token_key=process.env.TOKEN_KEY as string
+
 
 
 
@@ -289,7 +291,7 @@ export async function forgetPassword(req:Request,res:Response,next:NextFunction)
 
     const token=jwt.sign(
         {userId:user.id},
-        'oiug',
+        token_key,
         {expiresIn:'15min'}
     )
      
