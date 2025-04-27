@@ -228,15 +228,21 @@ export async function Dashboard (req:AuthenticatedRequest,res:Response,next:Next
 
 }
 
-export async function getAllUsers(req:AuthenticatedRequest,res:Response,next:NextFunction){
+export async function getAllUsers(req:AuthenticatedRequest,res:Response,next:NextFunction):Promise<any>{
 
-    const admin=await prisma.user.findUnique({
-        where:{id:req.user},
-        include:{products:true}
-    })
-    const users=await prisma.user.findMany({
-        include:{products:true}
-    })
+   try {
+        const admin=await prisma.user.findUnique({
+            where:{id:req.user},
+            include:{products:true}
+        })
+        const users=await prisma.user.findMany({
+            include:{products:true}
+        })
 
-    res.status(200).json({Admin:admin,Allusers:users})
+        res.status(200).json({Admin:admin,Allusers:users})
+        
+   } catch (error) {
+
+    return res.status(500).json({Message:'Error to access Admin dashboard !'})
+   }
 }
