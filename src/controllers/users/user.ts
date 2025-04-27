@@ -274,4 +274,9 @@ export async function getAllUsers(req:AuthenticatedRequest,res:Response,next:Nex
     return res.status(500).json({Message:'Error to access Admin dashboard !'})
 
    }
+};
+
+
+export async function forgetPassword(req:Request,res:Response,next:NextFunction){
+     
 }
