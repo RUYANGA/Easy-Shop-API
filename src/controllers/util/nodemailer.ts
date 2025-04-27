@@ -93,7 +93,7 @@ const transporter = nodemailer.createTransport({
 
 
 
-  export const forgetPassword = async (to: string,  token:string,user:string) => {
+  export const forgetPassword1 = async (to: string,  token:string,user:string) => {
     const info = await transporter.sendMail({
       from:'EASY SHOP',
       to,

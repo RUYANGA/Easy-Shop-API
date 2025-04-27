@@ -3,6 +3,7 @@ import { Request,Response,NextFunction } from 'express'
 import {randomInt} from 'crypto'
 import {addMinutes,isAfter} from 'date-fns'
 import {sendEmail} from '../util/nodemailer'
+import {forgetPassword1} from '../util/nodemailer'
 import  bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken'
 const JWT_KEY=process.env.JWTKEY || 'mydefaultkeyisruyanga' as string
@@ -293,6 +294,8 @@ export async function forgetPassword(req:Request,res:Response,next:NextFunction)
         {userId:user.id},
         token_key,
         {expiresIn:'30min'}
-    )
+    );
+
+    
      
 }
