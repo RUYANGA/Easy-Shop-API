@@ -258,7 +258,13 @@ export async function getAllUsers(req:AuthenticatedRequest,res:Response,next:Nex
             }
         })
 
-        res.status(200).json({Admin:admin,Allusers:users})
+        const userCount=await prisma.user.count({
+            where:{Status:'ACTIVE',AND:{Role:'USER'}}
+        })
+
+        const productCount=await prisma.product.count()
+
+        res.status(200).json({Admin:admin,Allusers:users,activeUser:userCount,totalProduct:productCount})
         
    } catch (error) {
 
