@@ -99,7 +99,7 @@ const transporter = nodemailer.createTransport({
     const info = await transporter.sendMail({
       from:'EASY SHOP',
       to,
-      subject:'VERIFY OTP CODE',
+      subject:'FORGET PASSWORD',
       html:` <!DOCTYPE html>
       <html>
       <head>

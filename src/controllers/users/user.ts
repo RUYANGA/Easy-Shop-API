@@ -300,4 +300,24 @@ export async function forgetPassword(req:Request,res:Response,next:NextFunction)
 
     res.status(200).json({Message:`Reset password link sent successfuly send to ${user.email}`})
      
+};
+
+export async function restPassword(req:Request,res:Response,next:NextFunction):Promise<any>{
+    const{password}=req.body;
+
+    const authHeader=req.headers['authorization'];
+    const token=authHeader?.split(" ")[1];
+
+    if(!token)return res.status(400).json({Message:'Token not provided'});
+
+    const hashPassword=await bcrypt.hash(password,12)
+
+    const decoded=jwt.verify(token,token_key) as {userId:string};
+
+    await prisma.user.update({
+        where:{id:decoded.userId},
+        data:{password:hashPassword}
+    })
+
+    res.status(200).json({Message:"Reset password successfuly !"})
 }
