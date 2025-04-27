@@ -280,7 +280,7 @@ export async function getAllUsers(req:AuthenticatedRequest,res:Response,next:Nex
 };
 
 
-export async function forgetPassword(req:Request,res:Response,next:NextFunction){
+export async function forgetPassword(req:Request,res:Response,next:NextFunction):Promise<any>{
 
     const{email}=req.body;
 
@@ -296,6 +296,8 @@ export async function forgetPassword(req:Request,res:Response,next:NextFunction)
         {expiresIn:'30min'}
     );
 
-    
+    forgetPassword1(email,token,user.username);
+
+    res.status(200).json({Message:`Reset password link sent successfuly send to ${user.email}`})
      
 }
