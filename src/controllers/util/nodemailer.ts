@@ -57,7 +57,7 @@ const transporter = nodemailer.createTransport({
               <!-- Footer -->
               <div style="background-color: #f4f4f4; padding: 24px; text-align: center;">
                   <p style="margin: 0; color: #777777; font-size: 14px;">
-                  © 2025 Your Company. All rights reserved.
+                  © 2025 EASY SHOP. All rights reserved.
                   </p>
                   <p style="margin: 10px 0 0; color: #777777; font-size: 14px;">
                   <a href="#" style="color: #777777; text-decoration: underline;">Unsubscribe</a> |
