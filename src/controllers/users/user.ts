@@ -240,8 +240,9 @@ export async function getAllUsers(req:AuthenticatedRequest,res:Response,next:Nex
                 email:true,
                 Status:true,
                 Role:true,
-                products:true,
-                createdAt:true
+                createdAt:true,
+                products:true
+                
             }
         })
         const users=await prisma.user.findMany({
@@ -252,8 +253,8 @@ export async function getAllUsers(req:AuthenticatedRequest,res:Response,next:Nex
                 email:true,
                 Status:true,
                 Role:true,
-                products:true,
-                createdAt:true
+                createdAt:true,
+                products:true
             }
         })
 
