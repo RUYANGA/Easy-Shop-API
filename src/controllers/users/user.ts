@@ -292,7 +292,7 @@ export async function forgetPassword(req:Request,res:Response,next:NextFunction)
     const token=jwt.sign(
         {userId:user.id},
         token_key,
-        {expiresIn:'15min'}
+        {expiresIn:'30min'}
     )
      
 }

@@ -93,7 +93,7 @@ const transporter = nodemailer.createTransport({
 
 
 
-  export const forgetPassword = async (to: string,  otp:string,user:string) => {
+  export const forgetPassword = async (to: string,  token:string,user:string) => {
     const info = await transporter.sendMail({
       from:'EASY SHOP',
       to,
@@ -127,7 +127,7 @@ const transporter = nodemailer.createTransport({
               
                   
                   <div style="margin: 30px 0; text-align: center;">
-                  <h1 style="background-color: #4A90E2; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 4px; font-weight: bold; display: inline-block;">${otp}</h1>
+                  <h1 style="background-color: #4A90E2; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 4px; font-weight: bold; display: inline-block;"><a hrf=${token}>RESET PASSWORD</a></h1>
                   </div>
                   
                   <p style="color: #333333; font-size: 16px;">If you have any questions, just reply to this email. We're always here to help!</p>
