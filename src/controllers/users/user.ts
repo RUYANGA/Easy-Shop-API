@@ -231,6 +231,8 @@ export async function Dashboard (req:AuthenticatedRequest,res:Response,next:Next
 export async function getAllUsers(req:AuthenticatedRequest,res:Response,next:NextFunction):Promise<any>{
 
    try {
+
+
         const admin=await prisma.user.findUnique({
             where:{id:req.user},
             
@@ -244,7 +246,8 @@ export async function getAllUsers(req:AuthenticatedRequest,res:Response,next:Nex
                 products:true
                 
             }
-        })
+            
+        });
         const users=await prisma.user.findMany({
             
             select:{
@@ -256,18 +259,19 @@ export async function getAllUsers(req:AuthenticatedRequest,res:Response,next:Nex
                 createdAt:true,
                 products:true
             }
-        })
+        });
 
         const userCount=await prisma.user.count({
             where:{Status:'ACTIVE',AND:{Role:'USER'}}
-        })
+        });
 
-        const productCount=await prisma.product.count()
+        const productCount=await prisma.product.count();
 
-        res.status(200).json({Admin:admin,Allusers:users,activeUser:userCount,totalProduct:productCount})
+        res.status(200).json({Admin:admin,Allusers:users,activeUser:userCount,totalProduct:productCount});
         
    } catch (error) {
 
     return res.status(500).json({Message:'Error to access Admin dashboard !'})
+
    }
 }
