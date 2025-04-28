@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express ,{Request,Response,NextFunction,ErrorRequestHandler} from 'express'
-const cors =require('cors')
+import cors from'cors'
 
 import productRoute from './routes/products/product'
 import userRouter from './routes/users/user'
@@ -10,12 +10,14 @@ import userRouter from './routes/users/user'
 const port=3000
 
 const app=express();
+
 app.use(cors({
     origin: 'https://venerable-llama-461baf.netlify.app',
-    methods: ['GET', 'POST'],
+    methods: ['GET', 'POST','DELETE','PUT'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
   }));
+  
 app.use(express.json());
 
 
