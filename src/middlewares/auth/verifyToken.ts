@@ -15,7 +15,7 @@ export const AuthorizeRoles = (allowedRoles:string[]) => {
       const authHeader = req.headers['authorization'];
       const token = authHeader?.split(' ')[1];
 
-      if (!token) return res.status(401).json({ message: 'Token is not provided!' });
+      if (!token) return res.status(401).json({ message: 'Your are not login , please login first' });
 
       const decoded = jwt.verify(token, JWT_KEY) as JwtPayloadWithId;
 
