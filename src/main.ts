@@ -2,19 +2,21 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express ,{Request,Response,NextFunction,ErrorRequestHandler} from 'express'
+const cors =require('cors')
 
 import productRoute from './routes/products/product'
 import userRouter from './routes/users/user'
 
 const port=3000
 
-const app=express()
-app.use(express.json())
+const app=express();
+app.use(cors());
+app.use(express.json());
 
 
 
-app.use(productRoute)
-app.use(userRouter)
+app.use(productRoute);
+app.use(userRouter);
 
 
 
