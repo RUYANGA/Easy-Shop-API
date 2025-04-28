@@ -270,7 +270,11 @@ export async function getAllUsers(req:AuthenticatedRequest,res:Response,next:Nex
 
         const productCount=await prisma.product.count();
 
-        res.status(200).json({Admin:admin,Allusers:users,activeUser:userCount,totalProduct:productCount});
+        const inactiveUser=await prisma.user.findMany({
+            where:{Status:'INACTIVE'}
+        })
+
+        res.status(200).json({Admin:admin,Allusers:users,activeUser:userCount,inactiveUser:inactiveUser,totalProduct:productCount});
         
    } catch (error) {
 
