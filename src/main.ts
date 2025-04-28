@@ -10,7 +10,12 @@ import userRouter from './routes/users/user'
 const port=3000
 
 const app=express();
-app.use(cors());
+app.use(cors({
+    origin: 'https://venerable-llama-461baf.netlify.app',
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+  }));
 app.use(express.json());
 
 
