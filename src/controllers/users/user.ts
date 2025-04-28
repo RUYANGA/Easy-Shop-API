@@ -282,24 +282,29 @@ export async function getAllUsers(req:AuthenticatedRequest,res:Response,next:Nex
 
 export async function forgetPassword(req:Request,res:Response,next:NextFunction):Promise<any>{
 
-    const{email}=req.body;
+    try {
+        
+        const{email}=req.body;
 
-    const user=await prisma.user.findUnique({
-        where:{email:email}
-    })
+        const user=await prisma.user.findUnique({
+            where:{email:email}
+        })
 
-    if(!user)return res.status(404).json({Message:'User not found'});
+        if(!user)return res.status(404).json({Message:'User not found'});
 
-    const token=jwt.sign(
-        {userId:user.id},
-        token_key,
-        {expiresIn:'30min'}
-    );
+        const token=jwt.sign(
+            {userId:user.id},
+            token_key,
+            {expiresIn:'30min'}
+        );
 
-    forgetPassword1(email,token,user.username);
+        forgetPassword1(email,token,user.username);
 
-    res.status(200).json({Message:`Reset password link sent successfuly send to ${user.email}`})
-     
+        res.status(200).json({Message:`Reset password link sent successfuly send to ${user.email}`,token:token})
+        
+    } catch (error) {
+        return res.status(500).json({Message:'Error to reset password !'})
+    }
 };
 
 export async function restPassword(req:Request,res:Response,next:NextFunction):Promise<any>{

@@ -9,7 +9,7 @@ interface JwtPayloadWithId extends jwt.JwtPayload {
   id: string;
 }
 
-export const AuthorizeRoles = (allowedRoles: string[]) => {
+export const AuthorizeRoles = (allowedRoles:string[]) => {
   return async (req: Request, res: Response, next: NextFunction): Promise<any> => {
     try {
       const authHeader = req.headers['authorization'];
