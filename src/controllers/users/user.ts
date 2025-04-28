@@ -270,7 +270,7 @@ export async function getAllUsers(req:AuthenticatedRequest,res:Response,next:Nex
 
         const productCount=await prisma.product.count();
 
-        const inactiveUser=await prisma.user.findMany({
+        const inactiveUser=await prisma.user.count({
             where:{Status:'INACTIVE'}
         })
 
